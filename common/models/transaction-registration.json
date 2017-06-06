@@ -1,0 +1,83 @@
+{
+  "name": "TransactionRegistration",
+  "base": "PersistedModel",
+  "injectOptionsFromRemoteContext": true,
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "forceId": false,
+  "mixins": {
+  },
+  "hidden": [
+
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "description": "the id of the transaction"
+    },
+    "payer": {
+      "type": "string",
+      "required": true,      
+      "description": "link to originating party (group, person, organization)"
+    },
+    "payergroup": {
+        "type": "string",
+        "required": true,
+        "description": "the group from which the payer does his transaction"
+    },
+    "payee": {
+      "type": "string",
+      "required": true,
+      "description": "link to target party (group, person, organization)"
+    },
+    "payeegroup": {
+        "type": "string",
+        "required": true,
+        "description": "the group from which the payee receives this transaction"
+    },
+    "description": {
+      "type": "string",
+      "required": false,
+      "description": "a description for the message"
+    },
+    "amount": {
+      "type": "Number",
+      "required": true,
+      "description": "requested amount for the transaction"
+    },
+    "messagecontexId": {
+      "type": "string",
+      "required": false,
+      "description": "The demand or message for which this transaction is made."
+    }
+  },
+  "validations": [],
+  "relations": {
+    "payer": {
+      "type": "belongsTo",
+      "model": "Person",
+      "foreignKey": "payer"
+    },
+    "payee": {
+      "type": "belongsTo",
+      "model": "Person",
+      "foreignKey": "payee"
+    },
+    "user":{
+      "type": "belongsTo",
+      "model": "LUser",
+      "foreignKey": "payer",
+      "options": {
+           "disableInclude": true
+      }
+    }
+  },
+  "acls": [
+  ],
+  "methods": {}
+}

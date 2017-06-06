@@ -1,0 +1,58 @@
+{
+  "name": "PendingMembership",
+  "base": "PartyRelation",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "partyrelations"
+    }
+  },
+  "forceId": false,
+  "properties": {
+    "subscriptionId": {
+      "type": "string",
+      "required": false,
+      "description": "the subscription in case the request got approved",
+      "postgresql": {
+        "columnName": "subscriptionId",
+        "dataType": "uuid",
+        "nullable": "YES"
+      }
+    }
+  },
+  "scope": { 
+    "where": {
+        "type": "pendingmember"
+      }
+    },
+  "validations": [],
+  "relations": {
+    "member": {
+      "type": "belongsTo",
+      "model": "Person",
+      "foreignKey": "from"
+    },
+    "group": {
+      "type": "belongsTo",
+      "model": "Group",
+      "foreignKey": "to"
+    },
+    "user":{
+      "type": "belongsTo",
+      "model": "LUser",
+      "foreignKey": "from",
+      "options": {
+           "disableInclude": true
+      }
+    },
+    "subscription":{
+      "type": "belongsTo",
+      "model": "Subscription",
+      "foreignKey": "subscriptionId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

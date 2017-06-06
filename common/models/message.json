@@ -1,0 +1,158 @@
+{
+  "name": "Message",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "messages"
+    }
+  },
+  "forceId": false,
+  "mixins": {
+    "Tracking": {},
+    "LogicalDelete": {}
+  },
+  "hidden": [
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "description": "the id of the message",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "partyId": {
+      "type": "string",
+      "required": true,
+      "description": "link to party (actually only to person)",
+      "postgresql": {
+        "columnName": "partyid",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "description": "the title for the message",
+      "postgresql": {
+        "columnName": "title",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    },
+    "description": {
+      "type": "string",
+      "required": false,
+      "description": "a description for the message",
+      "postgresql": {
+        "columnName": "description",
+        "dataType": "timestamp with time zone",
+        "nullable": "YES"
+      }
+    },
+    "eventdate": {
+      "type": "Date",
+      "required": false,
+      "description": "specific time for the event",
+      "postgresql": {
+        "columnName": "eventdate",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "amount": {
+      "type": "Number",
+      "required": false,
+      "description": "requested amount for the transaction",
+      "postgresql": {
+        "columnName": "amount",
+        "dataType": "integer",
+        "nullable": "YES"
+      }
+    },    
+    "unit": {
+      "type": "String",
+      "required": false,
+      "description": "the unit for the requested amount for the transaction",
+      "postgresql": {
+        "columnName": "unit",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "expires": {
+      "type": "Date",
+      "required": false,
+      "description": "date when the event expires",
+      "postgresql": {
+        "columnName": "eventdate",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "tags" : {
+      "type": "array",
+      "required": false,
+      "description": "the categorisation tags for this message",
+      "postgresql": {
+        "columnName": "tags",
+        "dataType": "text[]",
+        "nullable": "YES"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "owner": {
+      "type": "belongsTo",
+      "model": "Person",
+      "foreignKey": "partyId"
+      },
+    "replyOn": {
+      "type": "hasMany",
+      "model": "Message",
+      "foreignKey": "from",
+      "through": "MessageRelation",
+      "keyThrough": "to"
+    },
+    "replies": {
+      "type": "hasMany",
+      "model": "Message",
+      "foreignKey": "to",
+      "through": "MessageRelation",
+      "keyThrough": "from"
+    },
+    "transactions": {
+      "type": "hasMany",
+      "model": "Transaction",
+      "foreignKey": "messageId",
+      "through": "MessageTransaction",
+      "keyThrough": "transactionId"
+    },
+    "user":{
+      "type": "belongsTo",
+      "model": "LUser",
+      "foreignKey": "partyId",
+      "options": {
+           "disableInclude": true
+      }
+    }
+  },
+  "scopes":{
+    "vragen" : {"where": {"tags": {"inq": ["{vraag}"]}}},
+    "aanbod" : {"where": {"tags": {"inq": ["{aanbod}"]}}}    
+  },
+  "acls": [
+    
+  ],
+  "methods": {}
+}

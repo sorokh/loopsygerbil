@@ -1,0 +1,100 @@
+{
+  "name": "Person",
+  "base": "Party",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "parties"
+    }
+  },
+  "forceId": false,
+  "mixins": {
+    "Tracking": {},
+    "LogicalDelete": {},
+    "InActive": {}
+  },
+  "properties": {
+    "dateofbirth": {
+      "type": "date",
+      "required": true,
+      "description": "Birth Date of the Person",
+      "postgresql": {
+        "columnName": "dateofbirth",
+        "dataType": "timestamp with time zone",
+        "nullable": "NO"
+      }
+    }
+  },
+  "scope" : { 
+    "where": {
+      "type" : "person"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "adminFor": {
+      "type": "hasMany",
+      "model": "Group",
+      "foreignKey": "from",
+      "through": "GroupAdmin",
+      "keyThrough": "to"
+    },
+    "subscribedTo": {
+      "type": "hasMany",
+      "model": "Group",
+      "foreignKey": "from",
+      "through": "Subscription",
+      "keyThrough": "to"
+    },
+    "subscriptions": {
+      "type": "hasMany",
+      "model": "Subscription",
+      "foreignKey": "from",
+      "scope": {
+        "where": {
+            "or": [
+              {"status": "active"},
+              {"status": "inactive"}
+            ]
+        }
+      }
+    },
+    "pendingMemberships": {
+      "type": "hasMany",
+      "model": "PendingMembership",
+      "foreignKey": "from",
+      "scope": {
+        "where": {
+          "status": "active"
+        }
+      }
+    },
+    "messages" : {
+      "type": "hasMany",
+      "model": "Message",
+      "foreignKey": "partyId"
+    },
+    "contactDetails": {
+      "type": "hasMany",
+      "model": "ContactInfo",
+      "foreignKey": "partyId"
+    },
+    "avatar": {
+      "type": "hasOne",
+      "model": "Picture",
+      "foreignKey": ""
+    },
+    "user": {
+      "type": "belongsTo",
+      "model": "LUser",
+      "foreignKey": "id",
+      "options": {
+           "disableInclude": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

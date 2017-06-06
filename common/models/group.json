@@ -1,0 +1,139 @@
+{
+  "name": "Group",
+  "base": "Party",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "parties"
+    }
+  },
+  "forceId": false,
+  "mixins": {    
+    "Tracking": {},
+    "LogicalDelete": {},
+    "InActive": {}
+  },
+  "properties": {
+    "currencyname": {
+      "type": "string",
+      "required": true,
+      "description": "the name of the currency used within the group",
+      "postgresql": {
+        "columnName": "currencyname",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    },
+    "secondsperunit": {
+      "type": "number",
+      "required": true,
+      "description": "how much time 1 currency unit represents",
+      "postgresql": {
+        "columnName": "secondsperunit",
+        "dataType": "integer",  
+        "nullable": "NO"
+      }
+    },
+    "visibility": {
+      "type": "string",
+      "required": true,
+      "default": "public",
+      "description": "the accessibility status of this group. A public group is visible to all, a private group is visible to none other than its members. A protected group is visible to the hierarchical tree.",
+      "postgresql": {
+        "columnName": "visibility",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    }
+  },
+  "scope" : {
+    "where": { 
+      "type" : "group"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "members": {
+      "type": "hasMany",
+      "model": "Person",
+      "foreignKey": "to",
+      "through": "Subscription",
+      "keyThrough": "from",
+      "scope": {
+        "where": {
+          "status":"active"
+        }
+      }
+    },
+    "memberAccounts": {
+      "type": "hasMany",
+      "model": "Subscription",
+      "foreignKey": "to",
+      "scope": {
+        "where": {
+          "status": "active"
+        }
+      }
+    },
+    "pendingmembers": {
+      "type": "hasMany",
+      "model": "Person",
+      "foreignKey": "to",
+      "through": "PendingMembership",
+      "keyThrough": "from",
+      "scope": {
+        "where": {
+          "status":"active"
+        }
+      }
+    },
+    "pendingMemberships": {
+      "type": "hasMany",
+      "model": "PendingMembership",
+      "foreignKey": "to",
+      "scope": {
+        "where": {
+          "status": "active"
+        }
+      },
+      "include": "member"
+    },
+    "parent": {
+      "type": "hasMany",
+      "model": "Group",
+      "foreignKey": "from",
+      "through": "SubGroup",
+      "keyThrough": "to"
+    },
+    "subgroups": {
+      "type": "hasMany",
+      "model": "Group",
+      "foreignKey": "to",
+      "through": "SubGroup",
+      "keyThrough": "from"
+    },
+    "admins": {
+      "type": "hasMany",
+      "model": "Person",
+      "foreignKey": "to",
+      "through": "GroupAdmin",
+      "keyThrough": "from"
+    },
+    "messages": {
+      "type": "hasMany",
+      "model": "Message",
+      "foreignKey": "partyId",
+      "through": "MessageAudience",
+      "keyThrough": "messageId"
+    },
+    "contactDetails": {
+      "type": "hasMany",
+      "model": "ContactInfo",
+      "foreignKey": "partyId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

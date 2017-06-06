@@ -1,0 +1,178 @@
+{
+  "name": "ContactInfo",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "contactdetails"
+    }
+  },
+  "forceId": false,
+  "mixins": {
+    "Tracking": {},
+    "LogicalDelete": {}
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "description": "Primary Key",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "label": {
+      "type": "string",
+      "required": false,
+      "description": "kind of contact",
+      "postgresql": {
+        "columnName": "label",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "location": {
+      "type": "geopoint",
+      "required": false,
+      "description": "geo coordinates for address",
+      "postgresql": {
+        "columnName": "location",
+        "dataType": "point",
+        "nullable": "YES"
+      }
+    },
+    "partyId": {
+      "type": "string",
+      "required": false,
+      "description": "link to party (group, person, organization)",
+      "postgresql": {
+        "columnName": "partyid",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "partytype": {
+      "type": "string",
+      "required": false,
+      "description": "polymorphic discriminator for linked party",
+      "postgresql": {
+        "columnName": "partytype",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    },
+    "public": {
+      "type": "boolean",
+      "required": false,
+      "description": "is the contact info public or not",
+      "postgresql": {
+        "columnName": "public",
+        "dataType": "boolean",
+        "nullable": "NO"
+      }
+    },
+    "street": {
+      "type": "string",
+      "required": false,
+      "description": "street part of address",
+      "postgresql": {
+        "columnName": "street",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "streetnumber": {
+      "type": "string",
+      "required": false,
+      "description": "street number part of address",
+      "postgresql": {
+        "columnName": "streetnumber",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "streetbus": {
+      "type": "string",
+      "required": false,
+      "description": "street bus part of address",
+      "postgresql": {
+        "columnName": "streetbus",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "zipcode": {
+      "type": "string",
+      "required": false,
+      "description": "postal code part of address",
+      "postgresql": {
+        "columnName": "zipcode",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "city": {
+      "type": "string",
+      "required": false,
+      "description": "city part of address",
+      "postgresql": {
+        "columnName": "city",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "type": {
+      "type": "string",
+      "required": true,
+      "description": "type of contact",
+      "postgresql": {
+        "columnName": "type",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    },
+    "value": {
+      "type": "string",
+      "required": false,
+      "description": "value for non address type",
+      "postgresql": {
+        "columnName": "value",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "parentId": {
+        "type": "string",
+        "required": false,
+        "description": "value to indicate this is a copied instance of another contact detail.",
+        "postgresql": {
+           "columnName": "parentid",
+           "dataType": "uuid",
+           "nullable": "YES"
+        }
+    }
+  },
+  "scope" : {
+    "type" : "group"
+  },
+  "validations": [],
+  "relations": {
+    "owner": {
+      "type": "belongsTo",
+      "idName": "id",
+      "polymorphic": {
+        "idType": "Party.definition.properties.id.type",
+        "foreignKey": "partyid",
+        "discriminator": "partytype"
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

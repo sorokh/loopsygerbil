@@ -1,0 +1,68 @@
+{
+  "name": "Party",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "parties"
+    }
+  },
+  "forceId": false,
+  "hidden": [
+    "type"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "description": "the id of the party",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "description": "the name of the party",
+      "postgresql": {
+        "columnName": "name",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    },
+    "type": {
+      "type": "string",
+      "required": true,
+      "description": "the discriminator for the party",
+      "postgresql": {
+        "columnName": "type",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    },
+    "alias": {
+      "type": "string",
+      "required": false,
+      "description": "optional alias for a party",
+      "postgresql": {
+        "columnName": "alias",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    
+  },
+  "acls": [
+    
+  ],
+  "methods": {}
+}

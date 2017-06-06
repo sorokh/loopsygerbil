@@ -1,0 +1,67 @@
+{
+	"name": "Picture",
+	"base": "PersistedModel",
+	"idInjection": false,
+	"options": {
+		"validateUpsert": true
+	},
+	"forceId": false,
+	"mixins": {
+	    "Tracking": { "trackUser": true}
+	},
+	"hidden": [
+		"id"
+	],
+	"properties": {
+		"id": {
+			"type": "string",
+			"id": true,
+			"required": true,
+			"index": true,
+			"description": "The primary key of the File Object"
+		},
+		"name": {
+			"type": "string",
+			"required": false,
+			"description": "An optional name of the file."
+		},
+		"contenttype": {
+			"type": "string",
+			"required": true,
+			"description": "The content type of the attached file."
+		},
+		"size" : {
+			"type": "number",
+			"required": true,
+			"description": "The size of the file in bytes"
+		},
+		"entityId": {
+			"type": "string",
+			"required": true,
+			"description": "The Foreign Key for the Entity this picture is linked to."
+		},
+		"type": {
+			"type": "string",
+			"required": true,
+			"description": "The type discriminator for entities this file is linked to."
+		},
+		"url": {
+			"type": "string",
+			"required": false,
+			"description": "The url for accessing the file. This will be a container path."
+		}
+	},
+	"validations": [],
+	"relations": {
+	    "user":{
+	      "type": "belongsTo",
+	      "model": "LUser",
+	      "foreignKey": "ownerId",
+	      "options": {
+	           "disableInclude": true
+	      }
+    }
+	},
+	"acls": [],
+	"methods": {}
+}

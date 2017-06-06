@@ -1,0 +1,54 @@
+{
+  "name": "Link",
+  "base": "Model",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": false,
+      "description": "secondary key for selecting Link Objects which share the same relation type"
+    },
+    "templated": {
+      "type": "boolean",
+      "required": false,
+      "description": "SHOULD be true when the Link Object's \"href\" property is a URI Template"
+    },
+    "type": {
+      "type": "string",
+      "required": false,
+      "description": "used as a hint to indicate the media type expected when dereferencing the target resource"
+    },
+    "profile": {
+      "type": "string",
+      "required": false,
+      "description": "URI that hints about the profile of the target resource"
+    },
+    "title": {
+      "type": "string",
+      "required": false,
+      "description": "intended for labelling the link with a human-readable identifier"
+    },
+    "hreflang": {
+      "type": "string",
+      "required": false,
+      "description": "intended for indicating the language of the target resource"
+    },
+    "deprecation": {
+      "type": "boolean",
+      "required": false,
+      "description": "presence indicates that the link is to be deprecated"
+    },
+    "href": {
+      "type": "string",
+      "required": true,
+      "description": "The link reference"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

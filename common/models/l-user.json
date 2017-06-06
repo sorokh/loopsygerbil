@@ -1,0 +1,174 @@
+{
+  "name": "LUser",
+  "base": "User",
+  "idInjection": false,
+  "http" : {
+    "path" : "/Users"
+    }, 
+  "options": {
+    "injectOptionsFromRemoteContext": true,
+    "validateUpsert": true,
+    "remoting": {
+      "sharedMethods": {
+        "*": false,
+        "login": true,
+        "logout": true,
+        "reset": true,
+        "confirm": true
+      }
+    },
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "parties"
+    }
+  },
+  "forceId": false,
+  "mixins": {
+    "LogicalDelete": {},
+    "InActive": {}
+  },
+  "hidden": [
+    "type"
+  ],
+  "properties": {
+    "challenges": {
+      "type": "object",
+      "deprecated": true,
+      "postgresql": {
+        "columnName": "challenges",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "created": {
+      "type": "date",
+      "defaultFn": "now",
+      "postgresql": {
+        "columnName": "$$meta.created",
+        "dataType": "timestamp with time zone",
+        "nullable": "YES"
+      }
+    },
+    "credentials": {
+      "type": "object",
+      "deprecated": true,
+      "postgresql": {
+        "columnName": "credentials",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "email": {
+      "type": "string",
+      "required": true,
+      "postgresql": {
+        "columnName": "email",
+        "dataType": "text",
+        "nullable": "NO "
+      }
+    },
+    "emailVerified": {
+      "type": "boolean",
+      "default": false,
+      "postgresql": {
+        "columnName": "emailverified",
+        "dataType": "boolean",
+        "nullable": "NO"
+      }
+    },
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "defaultFn": "uuid",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "lastUpdated": {
+      "type": "date",
+      "defaultFn": "now",
+      "postgresql": {
+        "columnName": "$$meta.modified",
+        "dataType": "timestamp with time zone",
+        "nullable": "YES"
+      }
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "description": "the name of the party",
+      "postgresql": {
+        "columnName": "name",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    },
+    "password": {
+      "type": "string",
+      "required": true,
+      "postgresql": {
+        "columnName": "password",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    },
+    "realm": {
+      "type": "string",
+      "postgresql": {
+        "columnName": "realm",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "username": {
+      "type": "string",
+      "postgresql": {
+        "columnName": "login",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    },
+    "verificationToken": {
+      "type": "string",
+      "postgresql": {
+        "columnName": "verificationtoken",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "AccessToken",
+      "foreignKey": "userId",
+      "options": {
+        "disableInclude": true
+      }
+    },
+    "identities": {
+      "type": "hasMany",
+      "model": "userIdentity",
+      "foreignKey": "userId"
+    },
+    "credentials": {
+      "type": "hasMany",
+      "model": "userCredential",
+      "foreignKey": "userId"
+    },
+    "profile": {
+      "type": "hasOne",
+      "model": "Person",
+      "foreignKey": "id"
+    }
+  },
+  "acls": [
+ 
+  ],
+  "methods": {}
+}

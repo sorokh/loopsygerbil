@@ -1,0 +1,55 @@
+{
+  "name": "LRoleMapping",
+  "base": "RoleMapping",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "rolemapping"
+    }
+  },
+  "forceId": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "defaultFn": "uuid",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "principalType": {
+      "type": "string",
+      "description": "The principal type, such as user, application, or role",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "principalId": {
+      "type": "string",
+      "index": true,
+      "postgresql": {
+        "columnName": "principalid",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "role": {
+      "type": "belongsTo",
+      "model": "LRole",
+      "foreignKey": "roleId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

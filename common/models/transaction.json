@@ -1,0 +1,115 @@
+{
+  "name": "Transaction",
+  "base": "PersistedModel",
+  "injectOptionsFromRemoteContext": true,
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,    
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "transactions"
+    }
+  },
+  "forceId": false,
+  "mixins": {
+    "Tracking": {},
+    "LogicalDelete": {}  
+  },
+  "hidden": [
+
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "description": "the id of the transaction",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "from": {
+      "type": "string",
+      "required": true,      
+      "description": "link to originating party (group, person, organization)",
+      "postgresql": {
+        "columnName": "from",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "to": {
+      "type": "string",
+      "required": true,
+      "description": "link to target party (group, person, organization)",
+      "postgresql": {
+        "columnName": "to",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "description": {
+      "type": "string",
+      "required": false,
+      "description": "a description for the message",
+      "postgresql": {
+        "columnName": "description",
+        "dataType": "timestamp with time zone",
+        "nullable": "YES"
+      }
+    },
+    "amount": {
+      "type": "Number",
+      "required": false,
+      "description": "requested amount for the transaction",
+      "postgresql": {
+        "columnName": "amount",
+        "dataType": "integer",
+        "nullable": "YES"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "payer": {
+      "type": "belongsTo",
+      "model": "Person",
+      "foreignKey": "from"
+    },
+    "payee": {
+      "type": "belongsTo",
+      "model": "Person",
+      "foreignKey": "to"
+    },
+    "accountentries": {
+      "type" : "hasMany",
+      "model" : "AccountEntry",
+      "foreignKey" : "transactionId",
+      "options": {
+           "disableInclude": true
+      }
+    },
+    "messages" : {
+      "type" : "hasMany",
+      "model": "Message",
+      "foreignKey": "from",
+      "through": "MessageTransaction",
+      "keyThrough": "to"
+    },
+    "user":{
+      "type": "belongsTo",
+      "model": "LUser",
+      "foreignKey": "from",
+      "options": {
+           "disableInclude": true
+      }
+    }
+  },
+  "acls": [
+    
+  ],
+  "methods": {}
+}

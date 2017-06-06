@@ -1,0 +1,34 @@
+{
+  "name": "GroupAdmin",
+  "base": "PartyRelation",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "partyrelations"
+    }
+  },
+  "forceId": false,
+  "properties": {},
+  "scope": { 
+    "where": {
+        "type": "admin"
+      }
+    },
+  "validations": [],
+  "relations": {
+    "admin": {
+      "type": "belongsTo",
+      "model": "Person",
+      "foreignKey": "from"
+    },
+    "group": {
+      "type": "belongsTo",
+      "model": "Group",
+      "foreignKey": "to"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

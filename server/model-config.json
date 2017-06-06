@@ -1,0 +1,105 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../node_modules/loopback-component-passport/lib/models",      
+      "../common/models",
+      "./models"
+    ],
+	"mixins": [
+		"loopback/common/mixins",
+		"loopback/server/mixins",
+		"../common/mixins",   
+		"./mixins"
+	]
+  },
+  "LUser": {
+    "dataSource": "innergerbil",
+    "public": true
+  },
+  "AccessToken": {
+    "dataSource": "innergerbil",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "innergerbil",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "innergerbil",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "innergerbil",
+    "public": false
+  },
+  "Person": {
+    "dataSource": "innergerbil",
+    "public": true
+  },
+  "Group": {
+    "dataSource": "innergerbil",
+    "public": true
+  },
+  "GroupAdmin": {
+    "dataSource": "innergerbil",
+    "public": false
+  },
+  "Subscription": {
+    "dataSource": "innergerbil",
+    "public": true
+  },
+  "ContactInfo": {
+    "dataSource": "innergerbil",
+    "public": false
+  },
+  "PartyRelation": {  
+    "dataSource": "innergerbil",
+    "public": false
+  },
+  "MessageRelation": {
+    "dataSource": "innergerbil",
+    "public": false
+  },
+  "MessageAudience": {
+    "dataSource": "innergerbil",
+    "public": false
+  },
+  "Message": {
+    "dataSource": "innergerbil",
+    "public": true
+  },
+   "Transaction": {
+    "dataSource": "innergerbil",
+    "public": true
+  },
+   "AccountEntry": {
+    "dataSource": "innergerbil",
+    "public": false
+  },
+   "MessageTransaction": {
+    "dataSource": "innergerbil",
+    "public": false
+  },
+   "Audience": {
+    "dataSource": "transient",
+    "public": false
+  },
+  "Party": {
+    "dataSource": "innergerbil",
+    "public": false
+  },
+  "SubGroup": {
+    "dataSource": "innergerbil",
+    "public": false
+  },
+  "PendingMembership": {
+    "dataSource": "innergerbil",
+    "public": true
+  },
+  "TransactionRegistration": {
+    "dataSource": "transient",
+    "public": true
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "name": "AccountEntry",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "transactionrelations"
+    }
+  },
+  "forceId": false,
+  "mixins": {
+    "Tracking": {},
+    "LogicalDelete": {}
+  },
+  "hidden": [
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "description": "the id of the account entry",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "transactionId": {
+      "type": "string",
+      "required": true,
+      "description": "link to originating transaction",
+      "postgresql": {
+        "columnName": "transaction",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "subscriptionId": {
+      "type": "string",
+      "required": true,
+      "description": "link to target subscription",
+      "postgresql": {
+        "columnName": "partyrelation",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "amount": {
+      "type": "Number",
+      "required": false,
+      "description": "amount for the transaction to be added or substracted from the balance",
+      "postgresql": {
+        "columnName": "amount",
+        "dataType": "integer",
+        "nullable": "YES"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "transaction": {
+      "type": "belongsTo",
+      "model": "Transaction",
+      "foreignKey": "transactionId"
+    },
+    "account": {
+      "type": "belongsTo",
+      "model": "Subscription",
+      "foreignKey" : "subscriptionId"
+    }
+  },
+  "acls": [
+    
+  ],
+  "methods": {}
+}

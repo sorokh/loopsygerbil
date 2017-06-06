@@ -1,0 +1,26 @@
+{
+  "innergerbil": {
+    "host": "127.0.0.1",
+    "port": 5432,
+    "database": "postgres",
+    "password": "inner",
+    "name": "innergerbil",
+    "connector": "postgresql",
+    "user": "gerbil",
+    "schema": "innergerbil"
+  },
+  "transient": {
+  	 "name": "transient",
+  	 "connector": "transient"
+  },
+  "email": {
+    "name": "email",
+    "connector": "mail"
+  },
+  "S3": {
+    "name":"S3",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "./server/storage"
+  }
+}

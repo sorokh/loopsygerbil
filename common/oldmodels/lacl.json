@@ -1,0 +1,81 @@
+{
+  "name": "LACL",
+  "base": "ACL",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "acl"
+    }
+  },
+  "forceId": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "defaultFn": "uuid",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "model": {
+      "type": "string",
+      "description": "The name of the model",
+      "postgresql": {
+        "columnName": "model",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "property": {
+      "type": "string",
+      "description": "The name of the property, method, scope, or relation",
+      "postgresql": {
+        "columnName": "property",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "accessType": {
+      "type": "string",
+      "postgresql": {
+        "columnName": "accesstype",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "permission": {
+      "type": "string",
+      "postgresql": {
+        "columnName": "permission",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "principalType": {
+      "type": "string",
+      "postgresql": {
+        "columnName": "principaltype",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    },
+    "principalId": {
+      "type": "string",
+      "postgresql": {
+        "columnName": "principalid",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

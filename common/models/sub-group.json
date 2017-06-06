@@ -1,0 +1,34 @@
+{
+  "name": "SubGroup",
+  "base": "PartyRelation",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "partyrelations"
+    }
+  },
+  "forceId": false,
+  "properties": {},
+  "scope": { 
+    "where": {
+      "type": "subgroup"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "subgroup": {
+      "type": "belongsTo",
+      "model": "Group",
+      "foreignKey": "from"
+    },
+    "group": {
+      "type": "belongsTo",
+      "model": "Group",
+      "foreignKey": "to"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

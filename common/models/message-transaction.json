@@ -1,0 +1,70 @@
+{
+  "name": "MessageTransaction",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "messagetransactions"
+    }
+  },
+  "forceId": false,
+  "mixins": {
+    "Tracking": {},
+    "LogicalDelete": {}
+  },
+  "hidden": [
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "description": "the id of the message-transaction relation",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "messageId": {
+      "type": "string",
+      "required": true,
+      "description": "the message for which the linked transaction is done",
+      "postgresql": {
+        "columnName": "message",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "transactionId": {
+      "type": "string",
+      "required": true,
+      "description": "the reference to the transaction",
+      "postgresql": {
+        "columnName": "transaction",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "transaction": {
+      "type": "belongsTo",
+      "model": "Transaction",
+      "foreignKey": "transactionId"
+    },
+    "message": {
+      "type": "belongsTo",
+      "model": "Message",
+      "foreignKey": "messageId"
+    }
+  },
+  "acls": [
+    
+  ],
+  "methods": {}
+}

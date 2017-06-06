@@ -1,0 +1,78 @@
+{
+  "name": "MessageRelation",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "messagerelations"
+    }
+  },
+  "forceId": false,
+  "mixins": {
+    "Tracking": {},
+    "LogicalDelete": {}
+  },
+  "hidden": [
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "description": "The id of the relation",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "from": {
+      "type": "string",
+      "required": true,
+      "description": "the source party for the relation",
+      "postgresql": {
+        "columnName": "from",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "to": {
+      "type": "string",
+      "required": true,
+      "description": "the target party for the relation",
+      "postgresql": {
+        "columnName": "to",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "type": {
+      "type": "string",
+      "required": true,
+      "description": "the type of relation",
+      "postgresql": {
+        "columnName": "type",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {  
+    "source": {
+      "type": "belongsTo",
+      "model": "Message",
+      "foreignKey": "from"
+    },
+    "target": {
+      "type": "belongsTo",
+      "model": "Message",
+      "foreignKey": "to"
+    }
+    },
+  "acls": [],
+  "methods": {}
+}

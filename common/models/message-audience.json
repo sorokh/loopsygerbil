@@ -1,0 +1,82 @@
+{
+  "name": "MessageAudience",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "messageparties"
+    }
+  },
+  "forceId": false,
+  "mixins": {
+    "Tracking": {},
+    "LogicalDelete": {}
+  },
+  "hidden": [
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "description": "The id of the relation",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "messageId": {
+      "type": "string",
+      "required": true,
+      "description": "the source message for the relation",
+      "postgresql": {
+        "columnName": "messageid",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "partyId": {
+      "type": "string",
+      "required": true,
+      "description": "the target party for the relation",
+      "postgresql": {
+        "columnName": "partyid",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "partyType": {
+      "type": "string",
+      "required": true,
+      "description": "polymorphic discriminator for linked party",
+      "postgresql": {
+        "columnName": "partytype",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    }
+  },
+  "validations": [],
+  "relations": { 
+    "audience": {
+      "type": "belongsTo",  
+      "idName": "id",
+      "polymorphic": {        
+        "idType": "Party.definition.properties.id.type",
+        "foreignKey": "partyId",
+        "discriminator": "partyType"
+      }
+    },
+    "message":{
+      "type": "belongsTo",
+      "model": "Message",
+      "foreignKey": "messageId"
+    }   
+    },
+  "acls": [],
+  "methods": {}
+}

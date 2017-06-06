@@ -1,0 +1,35 @@
+{
+  "loopback-component-explorer": {
+    "mountPath": "/explorer"
+  },
+	"loopback-component-jsonapi": {
+		"restApiRoot": "/api",
+		"enable": true,		
+		"exclude": [      
+        {"model": "Person", "methods": ["accessibleGroups"]},
+      	{"model": "Message", "methods": ["audience"]}
+    	],
+    	"hideIrrelevantMethods": true,
+      "include" : [
+        {"model":"LUser", "methods": ["me"]},
+        {"model": "Person", "methods": ["accessibleMembers"]},
+        {"model": "Group", "methods": ["requestMembership"]},
+        {"model": "Transaction"},
+        {"model": "Subscription"}
+      ]
+	},
+  "loopback-component-access-groups": {
+    "userModel": "LUser",
+    "roleModel": "Role",
+    "groupAccessModel": "PartyRelation",
+    "groupModel": "Group",
+    "foreignKey": "to",
+    "groupRoles": [
+      "$group:intertrader",
+      "$group:trader",
+      "$group:submember",
+      "$group:member",
+      "$group:admin"
+    ]
+  }
+}

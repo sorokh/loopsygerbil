@@ -1,0 +1,75 @@
+{
+  "name": "Subscription",
+  "base": "PartyRelation",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "partyrelations"
+    }
+  },
+  "forceId": false,
+  "properties": {
+    "balance": {
+      "type": "number",
+      "required": true,
+      "description": "the amount of credits on this relation. Balance is in the currency of the associated group.",
+      "postgresql": {
+        "columnName": "balance",
+        "dataType": "integer",
+        "nullable": "NO"
+      }
+    },
+    "code": {
+      "type": "string",
+      "required": false,
+      "description": "the relation specific id code",
+      "postgresql": {
+        "columnName": "code",
+        "dataType": "text",
+        "nullable": "YES"
+      }
+    }
+  },
+  "scope":{
+    "where": {
+      "type": "member"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "member": {
+      "type": "belongsTo",
+      "model": "Person",
+      "foreignKey": "from"
+    },
+    "group": {
+      "type": "belongsTo",
+      "model": "Group",
+      "foreignKey": "to"
+    },
+    "entries": {
+      "type": "hasMany",
+      "model": "AccountEntry",
+      "foreignKey": "subscriptionId"
+    },
+    "transactions": {
+      "type": "hasMany",
+      "model": "Transaction",
+      "foreignKey": "subscriptionId",
+      "through": "AccountEntry",
+      "keythrough": "transactionId"
+    },
+    "user":{
+      "type": "belongsTo",
+      "model": "LUser",
+      "foreignKey": "from",
+      "options": {
+           "disableInclude": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

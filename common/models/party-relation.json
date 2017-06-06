@@ -1,0 +1,71 @@
+{
+  "name": "PartyRelation",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "schema": "innergerbil",
+      "table": "partyrelations"
+    }
+  },
+  "forceId": false,
+  "mixins": {    
+    "Tracking": {},
+    "LogicalDelete": {},
+    "InActive": {}
+  },
+  "hidden": [
+    "type"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "index": true,
+      "description": "The id of the relation",
+      "postgresql": {
+        "columnName": "key",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "from": {
+      "type": "string",
+      "required": true,
+      "description": "the source party for the relation",
+      "postgresql": {
+        "columnName": "from",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "to": {
+      "type": "string",
+      "required": true,
+      "description": "the target party for the relation",
+      "postgresql": {
+        "columnName": "to",
+        "dataType": "uuid",
+        "nullable": "NO"
+      }
+    },
+    "type": {
+      "type": "string",
+      "required": true,
+      "description": "the type of relation",
+      "postgresql": {
+        "columnName": "type",
+        "dataType": "text",
+        "nullable": "NO"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "scope": {
+  },
+  "acls": [],
+  "methods": {}
+}
