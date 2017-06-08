@@ -7,5 +7,19 @@
     "name": "innergerbil",
     "connector": "postgresql",
     "user": "gerbil"
+  },
+  "transient": {
+  	 "name": "transient",
+  	 "connector": "transient"
+  },
+  "email": {
+    "name": "email",
+    "connector": "mail"
+  },
+  "S3": {
+    "name":"S3",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "./server/storage"
   }
 }
