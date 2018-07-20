@@ -1,0 +1,12 @@
+language: node_js
+
+sudo: false
+
+# https://github.com/nodejs/LTS
+node_js:
+  - '10'
+  - '9'
+  - '8'
+  - '6'
+  
+  script: npm run test
