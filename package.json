@@ -18,7 +18,9 @@
     "db-migrate": "node node_modules/db-migrate/bin/db-migrate",
     "coverage": "node node_modules/istanbul/lib/cli.js cover --dir ./build/coverage node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 ",
     "outdated": "npm outdated --depth=0",
-    "angular": "node node_modules/loopback-sdk-angular-cli/bin/lb-ng.js -m gerbilServices -u http://192.168.99.100:32772/api server/server.js client/js/gerbilService.js"
+    "angular": "node node_modules/loopback-sdk-angular-cli/bin/lb-ng.js -m gerbilServices -u http://192.168.99.100:32772/api server/server.js client/js/gerbilService.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "compression": "^1.0.3",
@@ -39,7 +41,8 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.2",
     "serve-favicon": "^2.0.1",
-    "strong-error-handler": "^2.0.0"
+    "strong-error-handler": "^2.0.0",
+    "snyk": "^1.190.0"
   },
   "devDependencies": {
     "mocha": "^3.2.0",
@@ -65,5 +68,6 @@
     "url": ""
   },
   "license": "UNLICENSED",
-  "description": "loopsy"
+  "description": "loopsy",
+  "snyk": true
 }
