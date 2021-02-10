@@ -39,7 +39,7 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.2",
     "serve-favicon": "^2.0.1",
-    "strong-error-handler": "^2.0.0"
+    "strong-error-handler": "^3.5.0"
   },
   "devDependencies": {
     "mocha": "^3.2.0",
