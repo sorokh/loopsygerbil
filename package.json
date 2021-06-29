@@ -25,7 +25,7 @@
     "cors": "^2.5.2",
     "helmet": "^3.5.0",
     "loopback-jsonapi-model-serializer": "1.0.1",
-    "loopback": "^2.22.0",
+    "loopback": "^3.28.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-access-groups": "^1.0.3",
     "loopback-context": "^3.1.0",
