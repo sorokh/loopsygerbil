@@ -32,7 +32,7 @@
     "loopback-component-jsonapi": "^2.2.1",
     "loopback-component-passport": "^2.3.0",
     "loopback-component-storage": "^1.5.0",
-    "loopback-connector-postgresql": "^2.7.0",
+    "loopback-connector-postgresql": "^5.0.0",
     "loopback-datasource-juggler": "^2.39.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
